@@ -1,0 +1,65 @@
+For example these lines of input:
+CEO@InsuroCorp.com
+maffu@cs.otago.ac.nz
+gerry_at_research.techies_dot_co.uk
+bob.gmail.com
+cath@[139.80.91.50]
+
+
+should produce output like:
+ceo@insurocorp.com
+maffu@cs.otago.ac.nz <- Invalid extension
+gerry@research.techies.co.uk
+bob.gmail.com <- Missing @ symbol
+cath@[139.80.91.50]
+
+
+
+cedric.wanaka@gmail.com
+cedric..wanaka@gmail.com
+ccedric@gmail.com
+ccedric.wanaka@gmail.com
+cedric$@gmail.com
+cedric$_at_gmail.com
+
+for testing mailbox and domain: 
+$@gmail.com
+gmail@$.com
+cedric@$gmail.com
+cedric.wanaka@gmail$.com
+working.email@gmail.com
+
+for testing fullstop:
+invalid@gmailcom
+working@gmail.com
+
+for testing web extension:
+invalid@gmail.ac.otago
+invalid@gmail.ac.com
+invalid.mail@gmail.ac.otago
+valid@gmail.com
+
+both:
+$@gmail.com
+gmail@$.com
+cedric@$gmail.com
+cedric.wanaka@gmail$.com
+working.email@gmail.com
+invalid@gmail.ac.otago
+invalid@gmail.ac.com
+invalid.mail@gmail.ac.otago
+valid@gmail.com
+
+ip check:
+cedric@[12.22.22.45]
+invalid@[1000.234.345.55]
+invalid@[ff.dd.ff.g]
+valid@[152.128.6.7]
+
+testing _at_:
+cedric_at_gmail.com
+cedric_at_something_at_gmail.com
+cedric_at_at_gmail.com
+cedric_at_something@gmail.com
+
+

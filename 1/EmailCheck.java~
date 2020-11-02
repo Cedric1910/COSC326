@@ -1,0 +1,58 @@
+//imports
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*; 
+
+class EmailCheck{
+
+    public static void main(String[]args){
+        //scan input
+        ArrayList<String> emails = new ArrayList<String>(); 
+        System.out.println("enter email");
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNextLine()){
+            emails.add(sc.nextLine()); 
+        }
+            
+        //check parameters
+        emails.forEach((e)->CheckParam(e));  
+        
+    }
+    
+    public static void CheckParam(String email){
+
+        //check for @ symbol 
+        if(!email.contains("@") && !email.contains("_at_")){
+            System.out.println(email + " <- Missing @ symbol");
+            return; 
+        }
+
+        //check for "."
+        if(!email.contains(".")){
+            System.out.println(email + " <- Missing '.' symbol");
+            return; 
+        }
+
+        //check for valid domain extension
+        if(!email.contains("co.nz") && !email.contains("com.au") && !email.contains("co.ca")
+           && !email.contains("com") && !email.contains("co.us") && !email.contains("co.uk")){
+            System.out.println(email + " <- Invalid extension");
+            return; 
+        }
+
+        //check for valid mailbox name
+        if(email.substring(0,1).contains("@")){
+            System.out.println(email + " <- Invalid mailbox name");
+            return; 
+        }
+
+        //check for valid domain name
+        String s = email;
+        
+
+       
+
+        //email is fully working 
+        System.out.println(email); 
+    }
+}

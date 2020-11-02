@@ -1,0 +1,87 @@
+For example these lines of input:
+CEO@InsuroCorp.com
+maffu@cs.otago.ac.nz
+gerry_at_research.techies_dot_co.uk
+bob.gmail.com
+cath@[139.80.91.50]
+
+
+should produce output like:
+ceo@insurocorp.com
+maffu@cs.otago.ac.nz <- Invalid extension
+gerry@research.techies.co.uk
+bob.gmail.com <- Missing @ symbol
+cath@[139.80.91.50]
+
+
+(works)
+cedric.wanaka@gmail.com
+cedric..wanaka@gmail.com
+ccedric@gmail.com
+ccedric.wanaka@gmail.com
+cedric$@gmail.com
+cedric$_at_gmail.com
+
+for testing mailbox and domain: 
+$@gmail.com
+gmail@$.com
+cedric@$gmail.com
+cedric.wanaka@gmail$.com	<- checks for this case 
+working.email@gmail.com
+
+for testing fullstop:
+invalid@gmailcom		<- check for this case
+working@gmail.com
+invalid@mail.otago.com		<- check for this case
+invalid@mail.otagocom		<- check for this case 
+
+for testing web extension:
+invalid@gmail.ac.otago
+invalid@gmail.ac.com		<- check for this case
+invalid.mail@gmail.ac.otago
+valid@gmail.com
+
+both:
+$@gmail.com
+gmail@$.com
+cedric@$gmail.com
+cedric.wanaka@gmail$.com	<- check for this case 
+working.email@gmail.com
+invalid@gmail.ac.otago
+invalid@gmail.ac.com		<-check for this case
+invalid.mail@gmail.ac.otago
+valid@gmail.com
+
+ip check: (all work) 
+cedric@[12.22.22.45]
+invalid@[1000.234.345.55]
+invalid@[ff.dd.ff.g]
+valid@[152.128.6.7]
+inval@[128.45.43.4].com
+
+testing _at_: (all working) 
+cedric_at_gmail.com
+cedric_at_something_at_gmail.com
+cedric_at_at_gmail.com
+cedric_at_something@gmail.com
+
+ones not working:
+inval@[124.142.4.3].com
+cedric.wanaka@gmail$.com
+invalid@gmailcom	
+invalid@mail.otago.com	
+invalid@mail.otagocom	
+invalid@gmail.ac.com	
+cedric.wanaka@gmail$.com
+invalid@gmail.ac.com
+
+val@gmail.com
+inval@g$m.com
+val@mail.co.uk
+val@gmail.com
+inval.com
+inval@ggg.otago.com
+
+
+
+
