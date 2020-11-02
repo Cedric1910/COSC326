@@ -1,0 +1,11 @@
+testing for right format:
+1-2-3-4-5 
+1/2/3/4/5
+1 2 3 4 5 
+1/2/3-4/5
+
+a1/a2/a3/a4/a5
+c1/c2/c3/c4/c5
+c/c/c/c/c
+11C/11D/11H/11S/12S
+1C/2C/3C/4C/5C

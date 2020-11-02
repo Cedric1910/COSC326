@@ -1,0 +1,132 @@
+from collections import namedtuple
+import sys
+
+# START CHANGING FROM HERE
+
+# we'll use infinity as a default distance to nodes.
+inf = float('inf')
+Edge = namedtuple('Edge', 'start, end, cost')
+
+
+def make_edge(start, end, cost=1):
+  return Edge(start, end, cost)
+
+
+class Graph:
+    def __init__(self, routes):
+        # let's check that the data is right
+        wrong_edges = [i for i in routes if len(i) not in [2, 3]]
+
+        self.routes = [make_edge(*route) for route in routes]
+
+    @property
+    def locations(self):
+        return set(
+            sum(
+                ([route.start, route.end] for route in self.routes), []
+            )
+        )
+
+    def get_node_pairs(self, node1, node2, both_ends=True):
+        if both_ends:
+            node_pairs = [[node1, node2], [node2, node1]]
+        else:
+            node_pairs = [[node1, node2]]
+        return node_pairs
+
+    def remove_edge(self, node1, node2, both_ends=True):
+        node_pairs = self.get_node_pairs(node1, node2, both_ends)
+        routes = self.routes[:]
+        for route in routes:
+            if [route.start, route.end] in node_pairs:
+                self.routes.remove(route)
+
+    def add_edge(self, node1, node2, cost=1, both_ends=True):
+        node_pairs = self.get_node_pairs(node1, node2, both_ends)
+
+        self.routes.append(route(start=node1, end=node2, cost=cost))
+        if both_ends:
+            self.routes.append(route(start=node2, end=node1, cost=cost))
+
+    @property
+    def neighbours(self):
+        neighbours = {location: set() for location in self.locations}
+        for route in self.routes:
+            neighbours[route.start].add((route.end, route.cost))
+
+        return neighbours
+
+    def dijkstra(self, source, dest):
+        assert source in self.locations, 'Such source node doesn\'t exist'
+        distances = {location: inf for location in self.locations}
+        previous_locations = {
+            location: None for location in self.locations
+        }
+        distances[source] = 0
+        locations = self.locations.copy()
+
+        while locations:
+            current_location = min(
+                locations, key=lambda location: distances[location])
+            locations.remove(current_location)
+            if distances[current_location] == inf:
+                break
+            for neighbour, cost in self.neighbours[current_location]:
+                alternative_route = distances[current_location] + cost
+                if alternative_route < distances[neighbour]:
+                    distances[neighbour] = alternative_route
+                    previous_locations[neighbour] = current_location
+# STOP CHANGING HERE
+        
+        # Print all vertex in order - please tell me if this ain't working properly
+        while previous_locations[current_location] is not None:
+            print(current_vertex, end ="-")
+            current_location = previous_locations[current_location]
+        if previous_locations[current_location] is None:
+            print(current_location)
+      
+def getCities(cities, lines):
+    for line in lines: 
+      splitLine = line.split(',')
+      i=0 
+      while i<2: 
+        exists = "false"
+        if splitLine[i] not in cities: 
+            cities.append(splitLine[i].strip())
+        i = i + 1
+    return cities
+
+if __name__ == '__main__':
+        if sys.__stdin__.isatty():
+            print('Invalid: No input')
+            sys.exit(0)
+        target = sys.stdin.readline()
+        targetSplit = target.split(',')
+        source = targetSplit[0].strip().lower()
+        destination = targetSplit[1].strip().lower()
+        if len(targetSplit) != 2 or source == "" or destination == "":
+            print("Invalid: route")
+            sys.exit(0)
+        lines = sys.stdin.readlines()   
+        cities = [] 
+        cities = getCities(cities, lines)
+        uniqueEdges = []
+        edges = []
+        for line in lines:
+            line = line.lower().strip()
+            splitLine = line.split(',')
+            firstLocation = splitLine[0].strip()
+            secondLocation = splitLine[1].strip()
+            weight = splitLine[2].strip()
+            if len(splitLine) != 3 or firstLocation == "" or secondLocation == "" or weight == "":
+                print("Invalid: route set")
+                sys.exit(0)
+            if (firstLocation + " " + secondLocation not in uniqueEdges):
+                uniqueEdges.append(firstLocation + " " + secondLocation)
+                edges.append((firstLocation, secondLocation, float(weight)))
+            else:
+                print("Invalid: Non-unique routes")
+                sys.exit(0)
+     
+graph = Graph(edges)
+graph.dijkstra(source, destination)

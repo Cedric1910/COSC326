@@ -1,0 +1,6 @@
+Etude10 UserFilenames, Authors: Cedric Stephani, Hugo Baird. 
+
+to compile code: javac UserFilenames.java 
+to run the code: java UserFilenames 'directory name' 
+
+For this etude we assumemed that ... 
