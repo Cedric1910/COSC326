@@ -1,0 +1,26 @@
+Etude2 ManyDates.java, Cedric Stephani, Hugo Baird
+
+Compile: javac ManyDates.java
+run: java ManyDates
+
+test cases used:
+1999/02/05
+2005/20/30
+02/02/02
+01/01/01
+20/2009/5
+30/10/50
+29/12/99
+60/3/5
+5/3/60
+
+02/02/02
+09/09/09
+12/12/12
+
+9/9/99
+9/9/99
+1999/9/9
+19/19/1999
+05/05/3100
+02/02/1735
